@@ -1,0 +1,19 @@
+# Copy these key/value pairs to your hosting platform's Environment Variables UI.
+# Do NOT commit real secrets in Git.
+
+# Required
+JWT_SECRET=
+DATABASE_URL=
+ALLOWED_ORIGINS=
+SOCKET_ORIGINS=
+NEXT_PUBLIC_BASE_URL=
+
+# Optional (used by prisma/seed.ts for initial admin seeding)
+ADMIN_USERNAME=
+ADMIN_EMAIL=
+ADMIN_PASSWORD=
+
+# Optional runtime
+NODE_ENV=production
+# PORT is read if provided (server.ts):
+PORT=3001

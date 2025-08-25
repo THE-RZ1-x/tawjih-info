@@ -1,0 +1,277 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Consolas, "Liberation Mono", Menlo, monospace;
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  --radius: 0.625rem;
+  --background: #ffffff;
+  --foreground: #0f172a;
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+  --popover: #ffffff;
+  --popover-foreground: #0f172a;
+  --primary: #059669;
+  --primary-foreground: #ffffff;
+  --secondary: #f8fafc;
+  --secondary-foreground: #0f172a;
+  --muted: #f8fafc;
+  --muted-foreground: #64748b;
+  --accent: #f97316;
+  --accent-foreground: #ffffff;
+  --destructive: #ef4444;
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --ring: #059669;
+  --chart-1: #059669;
+  --chart-2: #f97316;
+  --chart-3: #8b5cf6;
+  --chart-4: #06b6d4;
+  --chart-5: #84cc16;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #0f172a;
+  --sidebar-primary: #059669;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #f8fafc;
+  --sidebar-accent-foreground: #0f172a;
+  --sidebar-border: #e2e8f0;
+  --sidebar-ring: #059669;
+}
+
+.dark {
+  --background: #0f172a;
+  --foreground: #f8fafc;
+  --card: #1e293b;
+  --card-foreground: #f8fafc;
+  --popover: #1e293b;
+  --popover-foreground: #f8fafc;
+  --primary: #059669;
+  --primary-foreground: #ffffff;
+  --secondary: #334155;
+  --secondary-foreground: #f8fafc;
+  --muted: #334155;
+  --muted-foreground: #94a3b8;
+  --accent: #f97316;
+  --accent-foreground: #ffffff;
+  --destructive: #ef4444;
+  --border: #334155;
+  --input: #334155;
+  --ring: #059669;
+  --chart-1: #059669;
+  --chart-2: #f97316;
+  --chart-3: #8b5cf6;
+  --chart-4: #06b6d4;
+  --chart-5: #84cc16;
+  --sidebar: #1e293b;
+  --sidebar-foreground: #f8fafc;
+  --sidebar-primary: #059669;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #334155;
+  --sidebar-accent-foreground: #f8fafc;
+  --sidebar-border: #334155;
+  --sidebar-ring: #059669;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    background-image: 
+      radial-gradient(at 20% 80%, rgba(5, 150, 105, 0.05) 0px, transparent 50%),
+      radial-gradient(at 80% 20%, rgba(249, 115, 22, 0.05) 0px, transparent 50%),
+      radial-gradient(at 40% 40%, rgba(139, 92, 246, 0.03) 0px, transparent 50%);
+    background-attachment: fixed;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold tracking-tight;
+    letter-spacing: -0.025em;
+  }
+  
+  h1 {
+    @apply text-4xl md:text-5xl;
+    line-height: 1.1;
+  }
+  
+  h2 {
+    @apply text-3xl md:text-4xl;
+    line-height: 1.2;
+  }
+  
+  h3 {
+    @apply text-2xl md:text-3xl;
+    line-height: 1.3;
+  }
+  
+  .prose {
+    @apply text-foreground max-w-none;
+  }
+  
+  .prose h1 {
+    @apply text-3xl font-bold mb-6 mt-8 text-primary;
+  }
+  
+  .prose h2 {
+    @apply text-2xl font-semibold mb-4 mt-6 text-primary;
+  }
+  
+  .prose h3 {
+    @apply text-xl font-medium mb-3 mt-4;
+  }
+  
+  .prose p {
+    @apply mb-4 leading-relaxed;
+  }
+  
+  .prose ul, .prose ol {
+    @apply mb-4 ml-6;
+  }
+  
+  .prose li {
+    @apply mb-2;
+  }
+  
+  .prose strong {
+    @apply font-semibold text-primary;
+  }
+  
+  .prose a {
+    @apply text-primary hover:text-primary/80 underline;
+  }
+  
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent;
+  }
+  
+  .glass-effect {
+    @apply bg-white/80 backdrop-blur-sm border border-white/20;
+  }
+  
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
+  }
+  
+  .hero-pattern {
+    background-color: #f8fafc;
+    background-image: 
+      radial-gradient(at 47% 33%, hsl(162.00, 77%, 40%) 0, transparent 59%), 
+      radial-gradient(at 82% 65%, hsl(218.00, 39%, 11%) 0, transparent 55%);
+  }
+  
+  .animate-gradient {
+    background-size: 200% 200%;
+    animation: gradient 3s ease infinite;
+  }
+
+  @keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  .text-shadow {
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .section-divider {
+    @apply relative py-1;
+  }
+  
+  .section-divider::after {
+    content: '';
+    @apply absolute bottom-0 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-primary to-accent rounded-full;
+  }
+}
+
+/* Enhanced selection and scrollbar styling */
+::selection {
+  background-color: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+}
+
+html {
+  scrollbar-color: hsl(var(--primary)) transparent; /* Firefox */
+  scrollbar-width: thin;
+}
+
+/* WebKit scrollbars */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, hsl(var(--primary)) 20%, hsl(var(--accent)) 100%);
+}
+
+/* Subtle card hover effect for content cards */
+.card-hover {
+  @apply transition-transform duration-300 ease-out hover:scale-[1.01] hover:shadow-xl;
+}
+
+/* Animated gradient utility used in hero headings */
+@keyframes animated-gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: animated-gradient 6s ease infinite;
+}

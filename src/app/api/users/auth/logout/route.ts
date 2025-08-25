@@ -1,0 +1,23 @@
+import { NextResponse } from 'next/server';
+import { securityHeadersMiddleware } from '@/lib/middleware';
+
+export async function POST() {
+  try {
+    const response = NextResponse.json({
+      success: true,
+      message: 'Logout successful'
+    });
+
+    // Clear the auth cookie
+    response.cookies.delete('auth-token');
+
+    return securityHeadersMiddleware(response);
+  } catch (error) {
+    console.error('Logout error:', error);
+    const response = NextResponse.json(
+      { success: false, message: 'Internal server error' },
+      { status: 500 }
+    );
+    return securityHeadersMiddleware(response);
+  }
+}

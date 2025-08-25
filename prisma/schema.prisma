@@ -1,0 +1,160 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+}
+
+model JobCompetition {
+  id           String    @id @default(cuid())
+  title_ar     String    @map("title_ar")
+  slug_ar      String    @unique @map("slug_ar")
+  body_ar      String    @map("body_ar")
+  sector       String
+  region       String
+  closing_date DateTime?
+  pdf_url      String?
+  featured     Boolean   @default(false)
+  published    Boolean   @default(false)
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+
+  seoMeta   SeoMeta?
+  heroImage HeroImage?
+  savedJobs SavedJob[]
+
+  @@map("job_competitions")
+}
+
+model SchoolGuidance {
+  id        String   @id @default(cuid())
+  title_ar  String   @map("title_ar")
+  slug_ar   String   @unique @map("slug_ar")
+  body_ar   String   @map("body_ar")
+  sector    String
+  region    String
+  pdf_url   String?
+  featured  Boolean  @default(false)
+  published Boolean  @default(false)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  seoMeta   SeoMeta?
+  heroImage HeroImage?
+
+  @@map("school_guidance")
+}
+
+model ExamCalendar {
+  id           String   @id @default(cuid())
+  title_ar     String   @map("title_ar")
+  slug_ar      String   @unique @map("slug_ar")
+  body_ar      String   @map("body_ar")
+  exam_date    DateTime @map("exam_date")
+  subject      String
+  school_level String   @map("school_level")
+  sector       String
+  region       String
+  pdf_url      String?
+  featured     Boolean  @default(false)
+  published    Boolean  @default(false)
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  seoMeta   SeoMeta?
+  heroImage HeroImage?
+
+  @@map("exam_calendars")
+}
+
+model SeoMeta {
+  id               String  @id @default(cuid())
+  title            String?
+  description      String?
+  jobCompetitionId String? @unique
+  schoolGuidanceId String? @unique
+  examCalendarId   String? @unique
+
+  jobCompetition JobCompetition? @relation(fields: [jobCompetitionId], references: [id])
+  schoolGuidance SchoolGuidance? @relation(fields: [schoolGuidanceId], references: [id])
+  examCalendar   ExamCalendar?   @relation(fields: [examCalendarId], references: [id])
+
+  @@map("seo_meta")
+}
+
+model HeroImage {
+  id       String @id @default(cuid())
+  url      String
+  alt_text String @map("alt_text")
+
+  jobCompetitionId String? @unique
+  schoolGuidanceId String? @unique
+  examCalendarId   String? @unique
+
+  jobCompetition JobCompetition? @relation(fields: [jobCompetitionId], references: [id])
+  schoolGuidance SchoolGuidance? @relation(fields: [schoolGuidanceId], references: [id])
+  examCalendar   ExamCalendar?   @relation(fields: [examCalendarId], references: [id])
+
+  @@map("hero_images")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  role         String   @default("user")
+  preferences  Json?
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  savedJobs SavedJob[]
+  bookmarks Bookmark[]
+
+  @@map("users")
+}
+
+model SavedJob {
+  id     String @id @default(cuid())
+  userId String
+  jobId  String
+
+  user User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  job  JobCompetition @relation(fields: [jobId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, jobId])
+  @@map("saved_jobs")
+}
+
+model Bookmark {
+  id         String   @id @default(cuid())
+  userId     String
+  targetType String // 'job', 'guidance', 'exam'
+  targetId   String
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, targetType, targetId])
+  @@map("bookmarks")
+}
+
+model Admin {
+  id        String   @id @default(cuid())
+  username  String   @unique
+  password  String
+  email     String   @unique
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("admins")
+}
