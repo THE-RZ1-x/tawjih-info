@@ -2,6 +2,11 @@
   command = "npm run db:generate && npm run build"
   publish = ".next"
 
+[build.environment]
+  NODE_ENV = "production"
+  NEXT_TELEMETRY_DISABLED = "1"
+  SECRETS_SCAN_OMIT_KEYS = "ADMIN_EMAIL,ADMIN_PASSWORD,ADMIN_USERNAME"
+
 [[plugins]]
   package = "@netlify/plugin-nextjs"
 
