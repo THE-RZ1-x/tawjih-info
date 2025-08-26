@@ -16,10 +16,12 @@ export async function GET() {
     try {
       tests.tables = {
         admin: await db.admin.count(),
-        job: await db.job.count(),
-        guidanceContent: await db.guidanceContent.count(),
-        examContent: await db.examContent.count(),
+        jobCompetition: await db.jobCompetition.count(),
+        schoolGuidance: await db.schoolGuidance.count(),
+        examCalendar: await db.examCalendar.count(),
         user: await db.user.count(),
+        savedJob: await db.savedJob.count(),
+        bookmark: await db.bookmark.count(),
       };
     } catch (tableError) {
       console.error('Table access error:', tableError);
