@@ -33,6 +33,11 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 
+# netlify deployment files with secrets
+NETLIFY_*.env
+netlify.env
+*.secrets.env
+
 # vercel
 .vercel
 
@@ -51,6 +56,10 @@ prisma/*.db
 public/uploads/
 
 # debug
+dev.log
+test
+prompt
+server.log# debug
 dev.log
 test
 prompt
