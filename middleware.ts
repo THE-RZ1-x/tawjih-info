@@ -33,7 +33,10 @@ export function middleware(request: NextRequest) {
   }
   
   // API admin route protection
-  if (pathname.startsWith('/api/admin') && !pathname.includes('/auth/login')) {
+  if (pathname.startsWith('/api/admin') && 
+      !pathname.includes('/auth/login') && 
+      !pathname.includes('/setup') && 
+      !pathname.includes('/init')) {
     const token = request.cookies.get('auth-token')?.value;
     
     if (!token) {
