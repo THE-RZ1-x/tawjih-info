@@ -1,55 +1,61 @@
 # 🚀 Netlify Environment Setup Instructions
 
-## 📁 Files Ready for Upload
+## 📁 Environment Variables Configuration
 
-I've created `NETLIFY_PRODUCTION.env` with your **actual database connection** and production-ready settings.
+Your environment variables are configured in the Netlify dashboard. No files with actual secrets should be committed to the repository.
 
 ## ✅ What's Already Configured
 
-- ✅ **Your real Neon PostgreSQL database URL**
-- ✅ **Production-grade JWT secrets** (stronger than development)
+- ✅ **Your Neon PostgreSQL database connection**
+- ✅ **Production-grade JWT secrets**
 - ✅ **Secure admin credentials**
 - ✅ **Production environment settings**
 
-## 🔧 What You Need to Change (Only 1 thing!)
+## 🔧 Environment Variables Setup
 
-### **Update Netlify App URL:**
-
-In `NETLIFY_PRODUCTION.env`, replace `YOUR-APP-NAME` with your actual Netlify app name:
+### **Required Environment Variables in Netlify Dashboard:**
 
 ```env
-# Change this:
-NEXTAUTH_URL=https://YOUR-APP-NAME.netlify.app
+# Database Configuration
+DATABASE_URL=postgresql://username:password@host/database?sslmode=require
+DIRECT_DATABASE_URL=postgresql://username:password@host/database?sslmode=require
 
-# To this (example):
-NEXTAUTH_URL=https://tawjih-info.netlify.app
+# Authentication Secrets
+JWT_SECRET=your-strong-jwt-secret-32-characters
+NEXTAUTH_SECRET=your-different-nextauth-secret-32-chars
+
+# App URLs (Replace with your actual Netlify app name)
+NEXTAUTH_URL=https://your-netlify-app.netlify.app
+ALLOWED_ORIGINS=https://your-netlify-app.netlify.app
+SOCKET_ORIGINS=https://your-netlify-app.netlify.app
+
+# Admin Credentials
+ADMIN_USERNAME=admin
+ADMIN_EMAIL=admin@yourdomain.com
+ADMIN_PASSWORD=YourSecureAdminPassword123!
+
+# Production Settings
+NODE_ENV=production
+NEXT_TELEMETRY_DISABLED=1
 ```
 
-**Update these 3 lines with your Netlify app name:**
-1. `NEXTAUTH_URL=https://YOUR-APP-NAME.netlify.app`
-2. `ALLOWED_ORIGINS=https://YOUR-APP-NAME.netlify.app`
-3. `SOCKET_ORIGINS=https://YOUR-APP-NAME.netlify.app`
+## 🚀 Setup Process
 
-## 🚀 Upload to Netlify
-
-1. **Open** `NETLIFY_PRODUCTION.env`
-2. **Replace** `YOUR-APP-NAME` with your Netlify app name
-3. **Save** the file
-4. **In Netlify Dashboard** → Click "Import from a .env file"
-5. **Upload** `NETLIFY_PRODUCTION.env`
-6. **Deploy!**
+1. **Go to Netlify Dashboard** → Your Site → Site Settings → Environment Variables
+2. **Add each variable** from the list above with your actual values
+3. **Deploy your site**
 
 ## 🎯 Your Database is Ready!
 
-Your Neon PostgreSQL database is already configured and will work immediately after upload.
+Your Neon PostgreSQL database is configured and will work immediately after deployment.
 
 ## 🔑 Admin Login
 
 After deployment, access admin panel at:
 - **URL:** `https://your-app.netlify.app/admin`
-- **Username:** `admin`
-- **Email:** `admin@tawjih-info.ma`
-- **Password:** `TawijhSecure2025!Morocco`
+- **Username:** Your configured admin username
+- **Email:** Your configured admin email
+- **Password:** Your secure admin password
 
 ---
 
